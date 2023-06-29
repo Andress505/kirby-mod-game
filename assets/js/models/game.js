@@ -2,19 +2,29 @@ class Game {
 
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        this.canvas.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext('2d');
 
         this.drawIntervalId = undefined;
+        this.fps = 60;
         
-        this.kirby = new Kirby(this.ctx, 10, 10);
+        this.kirby = new Kirby(this.ctx, 50, 10);
     }
 
+    
+    onKeyDown(event) {
+        this.kirby.onKeyDown(event);
+    }
+
+    onKeyUp(event) {
+        this.kirby.onKeyUp(event);
+    }
 
     start() {
         if (!this.drawIntervalId) {
         this.drawIntervalId = setInterval(() => {
             this.clear();
             this.draw();
+            this.move();
         }, 1000 / this.fps);
     }
 }
@@ -28,6 +38,9 @@ class Game {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    move () {
+        this.kirby.move();
+    }
 
     draw() {
         this.kirby.draw();
