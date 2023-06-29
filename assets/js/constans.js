@@ -5,3 +5,5 @@ const KEY_LEFT = 37;
 const KEY_SPACE = 32;
 
 const KIRBY_SPEED = 5;
+
+const BACKGROUND_SPEED = -1;

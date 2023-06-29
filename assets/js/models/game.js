@@ -7,7 +7,8 @@ class Game {
         this.drawIntervalId = undefined;
         this.fps = 60;
         
-        this.kirby = new Kirby(this.ctx, 50, 10);
+        this.background = new Background(this.ctx);
+        this.kirby = new Kirby(this.ctx, 25, 10);
     }
 
     
@@ -40,9 +41,11 @@ class Game {
 
     move () {
         this.kirby.move();
+        this.background.move();
     }
 
     draw() {
+        this.background.draw();
         this.kirby.draw();
     }
 }
