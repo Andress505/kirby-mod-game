@@ -7,3 +7,6 @@ const KEY_SPACE = 32;
 const KIRBY_SPEED = 5;
 
 const BACKGROUND_SPEED = -1;
+
+const KIRBY_PASSIVE_ANIMATION_TICK = 10;
+
