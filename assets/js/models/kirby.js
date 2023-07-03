@@ -104,5 +104,4 @@ class Kirby {
             this.sprite.horizontalFrameIndex = 0;
         }
     }
-    
 }
