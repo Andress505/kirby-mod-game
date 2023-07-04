@@ -26,6 +26,10 @@ class Weapon {
     move () {
         this.bullets.forEach((bullet) => {
             bullet.move();
-    });
-}
+        })
+    }
+
+    clearBullets() {
+        this.bullets = this.bullets.filter(bullet => bullet.isVisible() && !bullet.impact)
+    }
 }

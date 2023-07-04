@@ -1,18 +1,23 @@
 class Enemy {
-    constructor(ctx) {
+    constructor(ctx, x, y, w, h, sprite, score, isBoss) {
     this.ctx = ctx;
-    this.x = this.ctx.canvas.width;
-    this.y = this.ctx.canvas.height - 500;
-    this.w = 26 * 2;
-    this.h = 24 * 2;
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
     this.vx = -2;
 
+    this.lifes = 3;
+    this.isBoss = isBoss;
+
     this.sprite = new Image();
-    this.sprite.src = "/assets/img/scarfyorange.png";
+    this.sprite.src = sprite;
     this.sprite.verticalFrames = 1;
     this.sprite.verticalFrameIndex = 0;
     this.sprite.horizontalFrames = 3;
     this.sprite.horizontalFrameIndex = 0;
+
+    this.score = score;
 
     this.sprite.onload = () => {
         this.sprite.isReady = true;
@@ -48,19 +53,27 @@ class Enemy {
     }
 
     move() {
-    this.x += this.vx;
+        if ((this.isBoss && this.x > this.ctx.canvas.width / 2) || !this.isBoss) {
+            this.x += this.vx;
+        }
     }
 
     animate() {
-    this.animationTick++;
+        this.animationTick++;
 
-    if (this.animationTick > KIRBY_PASSIVE_ANIMATION_TICK) {
-        this.animationTick = 0;
-        this.sprite.horizontalFrameIndex++;
+        if (this.animationTick > KIRBY_PASSIVE_ANIMATION_TICK) {
+            this.animationTick = 0;
+            this.sprite.horizontalFrameIndex++;
 
-        if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
-        this.sprite.horizontalFrameIndex = 0;
+            if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
+            this.sprite.horizontalFrameIndex = 0;
+            }
         }
     }
+
+    isVisible() {
+        return this.x + this.w > 0
     }
+
+    
 }

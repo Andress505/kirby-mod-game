@@ -49,12 +49,12 @@ class Kirby {
 
     onKeyUp(event) {
         switch (event.keyCode) {
-        case KEY_SPACE:
-        case KEY_UP:
-        case KEY_DOWN:
-            this.vy = 0;
-            break;
-    }
+            case KEY_SPACE:
+            case KEY_UP:
+            case KEY_DOWN:
+                this.vy = 0;
+                break;
+        }
 }
 
     move() {
@@ -103,5 +103,19 @@ class Kirby {
         if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrame - 1) {
             this.sprite.horizontalFrameIndex = 0;
         }
+    }
+
+    checkBulletCollisions(enemy) {
+        const e = enemy;
+
+        return this.weapon.bullets.some(bullet => {
+            const colx = bullet.x >= e.x && bullet.x < e.x + e.w;
+            const coly = bullet.y >= e.y && bullet.y < e.y + e.h;
+            if (colx && coly) {
+                enemy.lifes -= 1;
+                bullet.hasImpact();
+            }
+            return colx && coly;
+        })
     }
 }
