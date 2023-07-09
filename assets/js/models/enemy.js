@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(ctx, x, y, w, h, sprite, score, isBoss) {
+    constructor(ctx, x, y, w, h, sprite, score) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
@@ -7,15 +7,14 @@ class Enemy {
     this.h = h;
     this.vx = -2;
 
-    this.lifes = 3;
-    this.isBoss = isBoss;
+    this.lifes = ENEMY_HP;
 
     this.sprite = new Image();
     this.sprite.src = sprite;
     this.sprite.verticalFrames = 1;
     this.sprite.verticalFrameIndex = 0;
     this.sprite.horizontalFrames = 3;
-    this.sprite.horizontalFrameIndex = 0;
+    this.sprite.horizontalFrameIndex = 0; 
 
     this.score = score;
 
@@ -53,9 +52,7 @@ class Enemy {
     }
 
     move() {
-        if ((this.isBoss && this.x > this.ctx.canvas.width / 2) || !this.isBoss) {
-            this.x += this.vx;
-        }
+        this.x += this.vx;
     }
 
     animate() {

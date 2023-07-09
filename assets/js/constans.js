@@ -10,3 +10,7 @@ const BACKGROUND_SPEED = -1;
 
 const KIRBY_PASSIVE_ANIMATION_TICK = 10;
 
+const ENEMY_HP = 2;
+const BOSS_HP = 5;
+
+const TIME_FOR_BOSS = 15 * 60;

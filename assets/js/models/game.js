@@ -12,9 +12,10 @@ class Game {
         this.enemies = [];
 
         this.gameOverAudio = new Audio("/assets/audio/game_over_theme.mp3")
-        this.gameOverAudio.volume = 0.3;
-        this.audio = new Audio("/assets/audio/kirby_dl_theme.mp3");
-        this.audio.volume = 0.3;
+
+        this.audio = new Audio("/assets/audio/kirby_game_theme.mp3");
+
+        this.winThemeAudio = new Audio("/assets/audio/kirby_win_theme.mp3")
 
         this.tickEnemy = 0;
 
@@ -34,7 +35,7 @@ class Game {
 
     start() {
         if (!this.drawIntervalId) {
-        //this.audio.play();
+        this.audio.play();
 
         this.drawIntervalId = setInterval(() => {
             this.clear();
@@ -110,15 +111,15 @@ class Game {
         const random = Math.floor(Math.random() * 10);
 
 
-        if (this.timelaps < 50 * 60 && this.boss) {
+        if (this.timelaps < TIME_FOR_BOSS && this.boss) {
             this.boss = false;
-            this.enemies.push(new Enemy(this.ctx, this.canvas.width, this.canvas.height / 2 - 95, 100 * 2, 95 * 2, "/assets/img/scarfyorange.png", 1000, true))
+            this.enemies.push(new Boss(this.ctx, this.canvas.width, this.canvas.height / 2 - 95, 100 * 2, 95 * 2, "/assets/img/boss-kirby-game.png", 1000))
         } else if (random > 8 && this.boss) {
-            this.enemies.push(new Enemy(this.ctx, this.canvas.width, y, 26 * 2, 24 * 2, "/assets/img/scarfyorange.png", 100, false))
+            this.enemies.push(new Enemy(this.ctx, this.canvas.width, y, 26 * 2, 24 * 2, "/assets/img/scarfyorange.png", 100))
         } else if (random < 3 && this.boss) {
-            this.enemies.push(new Enemy(this.ctx, this.canvas.width, y, 26 * 2, 24 * 2, "/assets/img/scarfyyellow.png", 200, false))
+            this.enemies.push(new Enemy(this.ctx, this.canvas.width, y, 26 * 2, 24 * 2, "/assets/img/scarfyyellow.png", 200))
         } else if (this.boss) {
-            this.enemies.push(new Enemy(this.ctx, this.canvas.width, y, 26 * 2, 24 * 2, "/assets/img/scarfypurple.png", 300, false))
+            this.enemies.push(new Enemy(this.ctx, this.canvas.width, y, 26 * 2, 24 * 2, "/assets/img/scarfypurple.png", 300))
         }       
     }
     
@@ -139,9 +140,9 @@ class Game {
 
     checkWeaponCollisions() {
         this.enemies.forEach((enemy) => {
-            const result = this.kirby.checkBulletCollisions(enemy);
-            if (result) {
-                
+            this.kirby.checkBulletCollisions(enemy);
+            if (enemy.lifes === 0 && enemy instanceof Boss) {
+                this.gameEnds();
             }
         })
     }
@@ -154,8 +155,23 @@ class Game {
 
     this.ctx.font = "40px Comic Sans MS";
     this.ctx.textAlign = "center";
+    this.ctx.fillStyle = "white";
     this.ctx.fillText(
         "GAME OVER",
+        this.ctx.canvas.width / 2,
+        this.ctx.canvas.height / 2
+    );
+    }
+
+    gameEnds() {
+        this.winThemeAudio.play();
+    this.stop();
+
+    this.ctx.font = "40px Comic Sans MS";
+    this.ctx.textAlign = "center";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText(
+        "YOU WIN",
         this.ctx.canvas.width / 2,
         this.ctx.canvas.height / 2
     );
@@ -166,4 +182,5 @@ class Game {
         this.audio.pause();
         this.drawIntervalId = undefined;
     }
+
 }
