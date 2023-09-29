@@ -6,8 +6,6 @@ class Bullet {
         this.w = 16 * 3;
         this.h = 16 * 3;
         this.vx = 5;
-        this.ax = 0;
-        
 
         this.impact = false;
         
@@ -47,7 +45,6 @@ class Bullet {
     }
 
     move() {
-        this.vx += this.ax
         this.x += this.vx
     }
 

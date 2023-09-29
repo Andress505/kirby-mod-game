@@ -153,7 +153,7 @@ class Game {
         this.gameOverAudio.play();
     this.stop();
 
-    this.ctx.font = "40px Comic Sans MS";
+    this.ctx.font = "75px -apple-system";
     this.ctx.textAlign = "center";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(
@@ -167,7 +167,7 @@ class Game {
         this.winThemeAudio.play();
     this.stop();
 
-    this.ctx.font = "40px Comic Sans MS";
+    this.ctx.font = "75px Comic Sans MS";
     this.ctx.textAlign = "center";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(
